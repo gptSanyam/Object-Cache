@@ -1,0 +1,35 @@
+A system was implemented in which FxRate was changed at 100ms rate within a bound of 8-9 in multiple of 0.01
+System implemenmts a simple object graph to calculate FlightPrice
+A generic approach to cache the function call results was developed
+
+Heap size:
+No improvement was seen
+
+Why no improvement in heap size:
+Actual object creation was replaced by creation of CacheKey and MethodParam objects
+
+With non-cached approach we were creating new objects for each price change
+With caching - implementation was done in a way that we create new MethodParam objects,
+ which is used to check an function entry in the cache
+In our example the size of the Method Param was actually similar to that of the the actual objects thus the heap utilization is similar
+If in real life examples the Cache Keys can be much smaller than the actual objects then we will definitely see an improvement
+
+Possible solutions:
+Come up with shorted way to represent MethodParams
+Cache the Method Params objects in cache and thus limiting the number of MethodParam objects that can be created
+
+//The way Cache is implemented is that it uses MethodParam as key - So basically we need MethodParam to create MethodParam (Catch22 ?)
+    //I can keep a separate HashMap in MethodParam class that takes a List<Object> (params) - i.e. a cache for MethodParam object itself
+    //build method will check in the local cache first and create a new object only if the object is not in the cache
+    //EVen then we will still be creating List<Objects>
+
+Improvements
+//todo caching mechanism should be implicit, preferably even before the method is actually called, so that we don't copy everything on stack
+
+//todo Right now the reactive part is explicitly written if generateFlightPrices(double price) i.e. implemented bu user code
+    //todo instead framework should take care object recreation one the object dependencies are defined
+    //todo Define a graph with dependencies - each end point nodes will be listening to the updates -
+    //todo if an update is received then the graph is cycled and all the dependent nodes are updated
+    //todo user will only define the graph once and attach the listeners to specific end objects - from there framework will take care of everything
+    //todo provide functions to users to update these end-point values
+    //todo Over and above this we can have change simulations built

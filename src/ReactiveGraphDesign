@@ -1,0 +1,33 @@
+Classes:
+Flight
+    Factory to construct object with an option to turn on/off caching
+    Factory to take FuelCost and OccupancyScore objects
+    getFlightPrice()
+    
+FuelCost
+    Factory to construct object with an option to turn on/off caching
+    Factory to take FxRate object
+    getCost()
+    
+OccupancyScore
+    Factory to construct object with an option to turn on/off caching
+    Factory to take FxRate object
+    getScore()
+    
+FxRate
+    Factory to construct object with an option to turn on/off caching
+    Factory to take a double price
+    getRate()
+    
+LocalRate
+    Factory to construct object with an option to turn on/off caching
+    Factory to take a double price
+    getRate()
+
+FlightPriceSystem
+    Constructor with a boolean to turn on/off caching
+    Listen to changes in prices - When ever the rate changes recreate the object graph and display the Flight price
+
+Cache - Singleton
+    (method name:String, params) --> Object
+    getCachedObject()

@@ -1,0 +1,26 @@
+Constraints:
+- Once an object is created it cannot be modified - all variables are immutable
+- Give an object graph - if one object changes every object that depends on this object (directly or indirectly) changes
+
+Main program listens on the updates for FxRate and LocalRate
+Every time FxRate or LocalRate changes entire object graph is recalculated
+After the change Flight cost is displayed
+Every time a new object is created it is logged
+
+FxRate is changed from a separate thread per second
+
+Rate changes around an average price withing 1 unit of the average price, price to be incremented and decremented in multiples of 0.01 (precision)
+
+In the first implementation, every time one of the rate changes entire graph is recreated
+In second implementation, every time one of the prices changes graph is recreated only if the value "is not there in cache"
+    This should reduce the total number of objects created
+Cache to be a centralized one that can be used for objects of all types
+Cache -- HashMap -- (method name, params, )
+
+Objective: To compare if the second approach leads to less number of objects creation, heap size and smaller runtime
+
+Conclusion
+A system was implemented in which FxRate was changed at 100ms rate within a bound of 8-9 in multiple of 0.01
+System implemenmts a simple object graph to calculate FlightPrice
+A generic approach to cache the function call results was developed
+
